@@ -1,5 +1,6 @@
 const canvas = document.getElementById("jsCanvas"); //canvas
 const ctx = canvas.getContext("2d"); //context: pixel controller
+const colors = document.getElementsByClassName("jsColor");
 
 //pixel manipulation size
 canvas.width = 500;
@@ -39,6 +40,11 @@ function onMouseMove(event) {
   }
 }
 
+function handleColorClick(event) {
+  const color = event.target.style.backgroundColor;
+  ctx.strokeStyle = color; //override
+}
+
 if (jsCanvas) {
   //1. detect when mouse move inside of canvas
   canvas.addEventListener("mousemove", onMouseMove);
@@ -49,3 +55,9 @@ if (jsCanvas) {
   //4. when I leave canvas, stop painting
   canvas.addEventListener("mouseleave", stopPainting);
 }
+
+console.log(Array.from(colors));
+//Array.from(obj) : create array from obj
+Array.from(colors).forEach((color) =>
+  color.addEventListener("click", handleColorClick)
+);
